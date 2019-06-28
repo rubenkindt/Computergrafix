@@ -1,0 +1,32 @@
+#-*-makefile-*-
+
+TARGETS = \
+    prentje
+
+all All: $(TARGETS)
+
+################################################################################
+INCPATH = -I/usr/local/include
+LIBPATH = -L. -L/usr/local/lib/hpux32
+LIBS = -lglut -lGLU -lGL -lGLw -lXt -lXext -lX11 -ljpeg -lm 
+DEBUGFLAGS = +O3
+CFLAGS = +DD32 $(DEBUGFLAGS) $(INCPATH)
+
+
+SRCS = \
+	prentje.c
+
+OBJS = $(SRCS:.c=.o)
+
+.SUFFIXES:	.c
+
+.c.o:	
+	cc -c $< $(CFLAGS)
+
+
+prentje:  clean $(OBJS)
+	LDOPTS= \
+	cc -o prentje $(CFLAGS) $(OBJS) ../jpeg/InitJPG.o $(LIBPATH) $(LIBS) 
+
+clean:
+	rm -f prentje $(OBJS) core

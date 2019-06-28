@@ -1,0 +1,125 @@
+﻿Verslag Computer graphics
+Ruben Kindt 27/05/2019
+Alle ontwikkelde Routine's:
+	raam()
+		via het globaal argument 'projectie' kan u het perspectief aan passen
+		of meegeven met het programma als eerste argument 
+			o voor glOrtho
+			f voor glFrustum
+			g voor gluPerspective (default)
+	materiaalMenu()
+		via de rechter muisknop kan u het materiaal aanpassen (indien er licht is)
+	display()
+		tekent alles
+		roept tekenAssenEnLampen()
+			tekent de 3 as-lijnen en de 4 lichten als punt
+				men moet de lichten wel nog aan zetten
+		lichten()
+			hertekent de lampen (voor als de positie van lamp 4 verandert)
+		set GL_SHININESS
+		set GL_SMOOTH of GL_FLAT
+		mist aan/af GL_LINEAR,GL_EXP of GL_EXP2
+		tekent n reuzenraderen (default=1)
+			steunbalken()
+				tekent de 4 steunbalken per rad
+			as()
+				tekent de as
+				kan draaien
+					via een timer
+			spaken()
+				verbind de as met de 2 torussen
+				kan draaien
+					via een timer
+			torussen()
+				tekent de 2 torussen per rad
+				kan draaien
+					via een timer
+				kan doorzichtig worden 
+			dwarsEnCabine()
+				tekent de n dwarsbalken, de balken die de 2 torusen met elkaar verbinden
+				n=aantal cabines
+				kan draaien
+					via een timer
+				roept n keer cabine() op
+				cabine()
+					onderstuining()
+						tekent ondersteunende balk, dat is de balk die de cabine verbint aan de dwarsbalk hierboven beschreven
+						ondersteunende balk kan 'wiebelen' tussen -15° en 15°
+							via de glutIdleFunc(animidle) wordt de wiebelhoek bepaalt
+					tekent een dak()
+						via quadric of
+						via b-spline
+						controle punten
+						textuur
+						het dak kan wiebelen
+						kan daklijnen tekenen
+					tekent een kuip
+						kuipValsgespeeld()
+							via quadric
+							textuur
+						kuip()
+							bezier
+								mesh lijnen 2 manieren
+								punten
+								textuur
+					de cabine kan wiebelen
+						via de glutIdleFunc(animidle) wordt de wiebelhoek bepaalt
+		heeft een clipping-plane voor de steunbalken te clippen
+		heeft Textuur voor het grond vlak
+		heeft swapbuffers
+	toets()
+		case 'X'	verhoogt het oog in de X-as
+		case 'x'	verlaagt het oog in de X-as
+		case 'Y' 	analoog
+		case 'y' 	analoog
+		case 'Z' 	analoog
+		case 'z' 	analoog
+	
+		heleboel mooie camera posities
+        case '0' : xoog = 2.0, yoog = 3.0, zoog = 4.0;
+        case '1' : xoog = 2.0, yoog = 1.0, zoog = 9.0;
+        case '2' : xoog = 2.0, yoog = 1.0, zoog = 7.0;
+        case '3' : xoog =-1.0, yoog = 2.0, zoog = 4.0;
+        case '4' : xoog = 3.0, yoog = 2.0, zoog = 6.0;
+        case '5' : xoog = 5.0, yoog = 6.0, zoog = 0.0;
+        case '6' : xoog = 6.0, yoog = 4.0, zoog = 5.0;
+        case '7' : xoog = 0.0, yoog = 3.0, zoog = 4.0;
+        case '8' : xoog = 3.0, yoog = 5.0, zoog = 12.0
+        case '9' : xoog = 6.0, yoog = 2.0, zoog = 3.0;
+        case 'r'	reset een hele boel variabelen zoals de positie van het oog,de shininess,de lichthoek, de licht expo de de licht hoogte naar hun default waarden
+		
+        case 'a' 	zet wit licht ambi aan
+        case 'A' 	zet wit licht ambi uit
+        case 'b' 	zet groen/blauw licht diff aan	
+        case 'B' 	zet groen/blauw licht diff uit
+        case 'c' 	zet rood licht spec aan 
+        case 'C' 	zet rood licht spec uit
+        case 'd' 	zet geel licht aan
+        case 'D' 	zet geel licht uit
+        case 'h' 	verhoogt de gele lichtbron
+        case 'H' 	verlaagt de gele lichtbron
+        case 'v' 	verkleint de lichthoek lichthoek van de gele lamp
+        case 'V' 	vergroot  de lichthoek lichthoek van de gele lamp
+		case 'w' 	vergroot de exponent van de gele lamp met stappen van 5
+        case 'W' 	verkleint de exponent van de gele lamp met stappen van 5
+        case 'L' 	Tekent de punten waar de lampen staan
+		
+        case 'e'	verhoogt de shininess 
+        case 'E'	verlaagt de shininess 
+		
+        case 'f' 	doorzichtig=!doorzichtig van de torussen
+        case 'j'	tekent de assen=!assen; 
+        case 'n' 	verhoogt het aantal reuzenraderen we tekenen
+        case 'g' 	draaien=!draaien; van 0° tot 360°
+        case 'G' 	wiebelen=!wiebelen	van -15° tot 15°
+        case 's'	alls wordt GL_FLAT getekent
+        case 'S' 	alles wordt GL_SMOOTH getekent
+
+		case 'i'	toont een cilinderactige kuip, ipv de bezier kuip 
+        case 'l'	toont de complexse tekeningen tooncomplex=!tooncomplex 
+        case 'k'	toont de punten van de complexe vormen
+		case 'K'	zelf verzonnen uitbreiding: (dak lijnen tekenen en kuiplijnen op de 'korte' manier)
+        case 'm'	mist=!mist;
+        case 'M'	de mist wordt expon sneller 'dik'
+        case 't'		doet niets, geen textuur
+        case 'q'	exit(0);
